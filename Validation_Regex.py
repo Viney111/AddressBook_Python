@@ -28,7 +28,8 @@ class Regex_Validation:
             if(bool(re.match(r"^[A-Z]{1}[a-z]{2,}$", first_name)) == True):
                 return True
             else:
-                raise Custom_Exception_AddressBook("First name is not valid")
+                raise Custom_Exception_AddressBook(
+                    "First name should start with capital letter & should have at least 3 characters")
         except Exception as ex:
             print(ex)
             return False
@@ -44,7 +45,8 @@ class Regex_Validation:
             if(bool(re.match(r"^[A-Z]{1}[a-z]{2,}$", last_name)) == True):
                 return True
             else:
-                raise Custom_Exception_AddressBook("Last name is not valid")
+                raise Custom_Exception_AddressBook(
+                    "Last name should start with capital letter & should have at least 3 characters")
         except Exception as ex:
             print(ex)
             return False
@@ -60,7 +62,8 @@ class Regex_Validation:
             if (bool(re.match(r"^[1-9]{1}[0-9]{5}$", zip)) == True):
                 return True
             else:
-                raise Custom_Exception_AddressBook("Zip is not valid")
+                raise Custom_Exception_AddressBook(
+                    "Zip should have exactly 6 numbers & should not start with zero")
         except Exception as ex:
             print(ex)
             return False
@@ -76,7 +79,8 @@ class Regex_Validation:
             if (bool(re.match(r"^[0-9]{2}[ ][6-9]{1}[0-9]{9}$", phone_number)) == True):
                 return True
             else:
-                raise Custom_Exception_AddressBook("Phone Number is not valid")
+                raise Custom_Exception_AddressBook(
+                    "Phone Number should start with 91 (i.e. Country Code) and foloowed by exact 10 numbers")
         except Exception as ex:
             print(ex)
             return False
@@ -93,7 +97,7 @@ class Regex_Validation:
                 return True
             else:
                 raise Custom_Exception_AddressBook(
-                    "Email Pattern is incorrect")
+                    "Email should not start with capital letters & should have @ and .")
         except Exception as ex:
             print(ex)
             return False

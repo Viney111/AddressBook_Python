@@ -56,7 +56,7 @@ def storing_contacts_in_list(contacts_list):
             contact_obj = add_contacts_from_console()
             contacts_list.append(contact_obj)
             contacts_add_choice = input(
-                "Enter \"Y\" for adding more & \"N\" to stop adding: ")
+                "Enter \"Y\" for adding more contacts in this book OR \"N\" to stop adding: ")
             if (contacts_add_choice.upper() == "N"):
                 break
         return contacts_list

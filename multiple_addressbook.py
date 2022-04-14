@@ -6,6 +6,7 @@
     @Title : Multiple Address Book
 """
 # Importing Address Book
+from Custom_Exception import Custom_Exception_AddressBook
 import address_book
 
 # Importing Contacts Class
@@ -21,6 +22,10 @@ def adding_contactslist_in_dict(addressbook_dict):
     try:
         while True:
             name_of_address_book = input("Enter the name of addressBook: ")
+            for book_name in addressbook_dict.keys():
+                if book_name == name_of_address_book:
+                    raise Custom_Exception_AddressBook(
+                        "This addressBook name already exists")
             list_of_particular_addressbook = address_book.contacts_list_maker()
             addressbook_dict[name_of_address_book] = list_of_particular_addressbook
             choice = input(
@@ -29,6 +34,7 @@ def adding_contactslist_in_dict(addressbook_dict):
                 break
     except Exception as ex:
         print(ex)
+        adding_contactslist_in_dict(addressbook_dict)
 
 
 if __name__ == "__main__":

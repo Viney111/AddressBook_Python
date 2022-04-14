@@ -11,7 +11,8 @@ class Custom_Exception_AddressBook(Exception):
     """
     Description: This class is to generating Custom Exception as per User Understanding
     """
-    def __init__(slef, msg):
+
+    def __init__(self, msg):
         """
             Description: Constructor of Custom_Exception_AddressBook Class
             Parametres: Takes class fields & exception message

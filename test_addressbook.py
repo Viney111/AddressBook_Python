@@ -119,3 +119,12 @@ class Test_AddressBook(unittest.TestCase):
             "vineykahneja999gmail.com"))
         self.assertFalse(
             Regex_Validation.validate_email("vishal1juuneha@bridgelabzcom"))
+
+    def test_add_correct_contacts_from_console_returns_an_object_user_inputed(self):
+        """
+            Description: Unit Test to verify if contact added from console is stored as object
+            Parametres: Takes Input from user
+            Returns: The object having details entered by user from Console
+        """
+        contact_obj = address_book.add_contacts_from_console()
+        self.assertEquals(contact_obj.first_name, "Viney")
