@@ -45,7 +45,7 @@ def add_contacts_from_console():
         print(ex)
 
 
-def storing_contacts_in_list():
+def storing_contacts_in_list(contacts_list):
     """
         Description: Adding Contact Details form Console in list.
         Parameters: None
@@ -111,12 +111,14 @@ def editing_or_deleting_contacts(con_list):
         print(ex)
 
 
-if __name__ == "__main__":
-    contacts_list = []
-    storing_contacts_in_list()
-    user_choice = input(
-        "Do u want to edit or delete Contacts \"Y\" OR \"N\":").upper()
-    if (user_choice.upper() == "Y"):
-        editing_or_deleting_contacts(contacts_list)
-    for item in contacts_list:
-        print(str(item))
+def contacts_list_maker():
+    try:
+        contacts_list = []
+        storing_contacts_in_list(contacts_list)
+        user_choice = input(
+            "Do u want to edit or delete Contacts \"Y\" OR \"N\":").upper()
+        if (user_choice.upper() == "Y"):
+            editing_or_deleting_contacts(contacts_list)
+        return contacts_list
+    except Exception as ex:
+        print(ex)
