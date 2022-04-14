@@ -7,6 +7,8 @@
 """
 
 
+import io
+import sys
 from ast import Assert
 # Importing Unit Test Module
 import unittest
@@ -120,11 +122,27 @@ class Test_AddressBook(unittest.TestCase):
         self.assertFalse(
             Regex_Validation.validate_email("vishal1juuneha@bridgelabzcom"))
 
-    def test_add_correct_contacts_from_console_returns_an_object_user_inputed(self):
+    def test_add_correct_contacts_details_from_console_returns_an_object_user_inputed(self):
         """
             Description: Unit Test to verify if contact added from console is stored as object
             Parametres: Takes Input from user
             Returns: The object having details entered by user from Console
         """
         contact_obj = address_book.add_contacts_from_console()
-        self.assertEquals(contact_obj.first_name, "Viney")
+        self.assertEqual(contact_obj.first_name, "Viney")
+
+    # def test_add_incorrect_contacts_details_from_console_returns_error_msg(self):
+    #     """
+    #         Description: Unit Test to verify if contact added from console is stored as object
+    #         Parametres: Takes Input from user
+    #         Returns: The object having details entered by user from Console
+    #     """
+    #     captured_output = io.StringIO()
+    #     sys.stdout = captured_output
+    #     address_book.add_contacts_from_console()
+    #     sys.stdout = sys.__stdout__
+    #     print("Captured", captured_output.value())
+
+
+if __name__ == "__main___":
+    unittest.main()

@@ -7,6 +7,7 @@
 """
 
 # Importing Contacts Class
+from Custom_Exception import Custom_Exception_AddressBook
 from contacts import Contacts
 
 # Importing Regex Validation Class
@@ -54,6 +55,10 @@ def storing_contacts_in_list(contacts_list):
     try:
         while(True):
             contact_obj = add_contacts_from_console()
+            for item in contacts_list:
+                if item.first_name == contact_obj.first_name and item.last_name == contact_obj.last_name:
+                    raise Custom_Exception_AddressBook(
+                        "The entered Full name i.e. first name and last name already exists in particular address Book")
             contacts_list.append(contact_obj)
             contacts_add_choice = input(
                 "Enter \"Y\" for adding more contacts in this book OR \"N\" to stop adding: ")
