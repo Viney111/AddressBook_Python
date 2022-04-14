@@ -9,38 +9,51 @@
 # Importing Contacts Class
 from contacts import Contacts
 
+# Importing Regex Validation Class
+from Validation_Regex import Regex_Validation
 
-def Add_conatcts_from_console():
+
+def add_contacts_from_console():
     """
         Description: Adding Contact Details form Console & returning that details as an object of Contacts Class
         Parameters: None
-        Returns: Returns Conatacts class object having all info
+        Returns: Returns Contacts class object having all info
     """
     try:
-        first_name = input("Enter the first name: ")
-        last_name = input("Enter the last name: ")
-        address = input("Enter the address: ")
-        city = input("Enter city name: ")
-        state = input("Enter state name: ")
-        zip = input("Enter zip code: ")
-        phone_number = input("Enter phone_number: ")
-        email = input("Enter email address: ")
-        contact_obj = Contacts(first_name, last_name, address,
-                               city, state, zip, phone_number, email)
+        while(True):
+            first_name = input("Enter the first name: ")
+            if Regex_Validation.validate_first_name(first_name) == False:
+                continue
+            last_name = input("Enter the last name: ")
+            if Regex_Validation.validate_last_name(last_name) == False:
+                continue
+            address = input("Enter the address: ")
+            city = input("Enter city name: ")
+            state = input("Enter state name: ")
+            zip = input("Enter zip code: ")
+            if Regex_Validation.validate_zip(zip) == False:
+                continue
+            phone_number = input("Enter phone_number: ")
+            if Regex_Validation.validate_phone_number(phone_number) == False:
+                continue
+            email = input("Enter email address: ")
+            contact_obj = Contacts(first_name, last_name, address,
+                                   city, state, zip, phone_number, email)
+            break
         return contact_obj
     except Exception as ex:
         print(ex)
 
 
-def Storing_contacts_in_list():
+def storing_contacts_in_list():
     """
-        Description: Adding Contact Details form Console in list
+        Description: Adding Contact Details form Console in list.
         Parameters: None
-        Returns: Returns a list containing objects of Contact Class that is taken form Console i.e. User
+        Returns: Returns a list containing objects of Contact Class that is taken form Console i.e. User.
     """
     try:
         while(True):
-            contact_obj = Add_conatcts_from_console()
+            contact_obj = add_contacts_from_console()
             contacts_list.append(contact_obj)
             contacts_add_choice = input(
                 "Enter \"Y\" for adding more & \"N\" to stop adding: ")
@@ -51,11 +64,11 @@ def Storing_contacts_in_list():
         print(ex)
 
 
-def Editing_or_deleting_contacts(con_list):
+def editing_or_deleting_contacts(con_list):
     """
-        Description: Editing Contact Details form Console i.e. by user choice
-        Parameters: None
-        Returns: Returns a list containing objects of Contact Class that is taken form Console i.e. User
+        Description: Editing or deleting Contact Details form Console i.e. by user choice.
+        Parameters: Takes the Contacts List as arguments.
+        Returns: None, Just modifying the list i.e passed as arguments as per user choice.
     """
     edited_or_deleted_person_name = input(
         "Enter the name of person, whom details you want to edit or delete: ").upper()
@@ -100,10 +113,10 @@ def Editing_or_deleting_contacts(con_list):
 
 if __name__ == "__main__":
     contacts_list = []
-    Storing_contacts_in_list()
+    storing_contacts_in_list()
     user_choice = input(
         "Do u want to edit or delete Contacts \"Y\" OR \"N\":").upper()
     if (user_choice.upper() == "Y"):
-        Editing_or_deleting_contacts(contacts_list)
+        editing_or_deleting_contacts(contacts_list)
     for item in contacts_list:
         print(str(item))
