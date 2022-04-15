@@ -12,6 +12,9 @@ import sys
 from ast import Assert
 # Importing Unit Test Module
 import unittest
+from contacts import Contacts
+from unittest.mock import patch
+from io import StringIO
 
 # Importing Address Book
 import address_book
@@ -60,6 +63,60 @@ class Test_AddressBook(unittest.TestCase):
         """
         self.assertFalse(Regex_Validation.validate_last_name("Kj"))
         self.assertFalse(Regex_Validation.validate_last_name("juneja"))
+
+    def test_address_when_entered_correct_should_return_true(self):
+        """
+            Description: Unit Test to verify address positively
+            Parametres: Takes correct address
+            Returns: Just Checks the value inputed is giving desired results or not
+        """
+        self.assertTrue(Regex_Validation.validate_address("metoo"))
+        self.assertTrue(Regex_Validation.validate_address("kalanaur"))
+
+    def test_address_when_entered_incorrect_should_return_false(self):
+        """
+            Description: Unit Test to verify address negatively
+            Parametres: Takes Incorrect address
+            Returns: Just Checks the value inputed is giving desired results or not
+        """
+        self.assertFalse(Regex_Validation.validate_address("vine"))
+        self.assertFalse(Regex_Validation.validate_address("Vi"))
+
+    def test_cityname_when_entered_correct_should_return_true(self):
+        """
+            Description: Unit Test to verify city name positively
+            Parametres: Takes correct city name
+            Returns: Just Checks the value inputed is giving desired results or not
+        """
+        self.assertTrue(Regex_Validation.validate_city_name("Rohtak"))
+        self.assertTrue(Regex_Validation.validate_city_name("Mumbai"))
+
+    def test_cityname_when_entered_incorrect_should_return_false(self):
+        """
+            Description: Unit Test to verify city name negatively
+            Parametres: Takes Incorrect city name
+            Returns: Just Checks the value inputed is giving desired results or not
+        """
+        self.assertFalse(Regex_Validation.validate_city_name("panji"))
+        self.assertFalse(Regex_Validation.validate_city_name("ochi"))
+
+    def test_statename_when_entered_correct_should_return_true(self):
+        """
+            Description: Unit Test to verify state name positively
+            Parametres: Takes correct state name
+            Returns: Just Checks the value inputed is giving desired results or not
+        """
+        self.assertTrue(Regex_Validation.validate_state_name("Haryana"))
+        self.assertTrue(Regex_Validation.validate_state_name("Karnataka"))
+
+    def test_statename_when_entered_incorrect_should_return_false(self):
+        """
+            Description: Unit Test to verify state name negatively
+            Parametres: Takes Incorrect state name
+            Returns: Just Checks the value inputed is giving desired results or not
+        """
+        self.assertFalse(Regex_Validation.validate_state_name("goa"))
+        self.assertFalse(Regex_Validation.validate_state_name("assam"))
 
     def test_zip_when_entered_correct_should_return_true(self):
         """
@@ -122,26 +179,34 @@ class Test_AddressBook(unittest.TestCase):
         self.assertFalse(
             Regex_Validation.validate_email("vishal1juuneha@bridgelabzcom"))
 
-    def test_add_correct_contacts_details_from_console_returns_an_object_user_inputed(self):
-        """
-            Description: Unit Test to verify if contact added from console is stored as object
-            Parametres: Takes Input from user
-            Returns: The object having details entered by user from Console
-        """
-        contact_obj = address_book.add_contacts_from_console()
-        self.assertEqual(contact_obj.first_name, "Viney")
-
-    # def test_add_incorrect_contacts_details_from_console_returns_error_msg(self):
+    # def test_add_correct_contacts_details_from_console_returns_an_object_user_inputed(self):
     #     """
     #         Description: Unit Test to verify if contact added from console is stored as object
     #         Parametres: Takes Input from user
     #         Returns: The object having details entered by user from Console
     #     """
-    #     captured_output = io.StringIO()
-    #     sys.stdout = captured_output
-    #     address_book.add_contacts_from_console()
-    #     sys.stdout = sys.__stdout__
-    #     print("Captured", captured_output.value())
+    #     contact_obj = address_book.add_contacts_from_console()
+    #     self.assertEqual(contact_obj.first_name, "Viney")
+
+    def test_add_incorrect_contacts_details_from_console_returns_error_msg(self):
+        """
+            Description: Unit Test to verify if contact added from console is stored as object
+            Parametres: Takes Input from user
+            Returns: The object having details entered by user from Console
+        """
+        contact_obj = Contacts("Viney", "Khaneja", "", "", "",
+                               "124113", "91 7206594194", "vineykahneja999@gmail.com")
+        contacts_list = []
+        contacts_list.append(contact_obj)
+        with patch('sys.stdout', new=StringIO()) as fake_out:
+            address_book.storing_contacts_in_list(contacts_list)
+            self.assertEqual(fake_out.getvalue(
+            ), "The entered Full name i.e. first name and last name already exists in particular address Book")
+        # captured_output = io.StringIO()
+        # sys.stdout = captured_output
+        # address_book.add_contacts_from_console()
+        # sys.stdout = sys.__stdout__
+        # print("Captured", captured_output.value())
 
 
 if __name__ == "__main___":

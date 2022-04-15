@@ -51,6 +51,57 @@ class Regex_Validation:
             print(ex)
             return False
 
+    def validate_address(address):
+        """
+        Description: This function is to validate address.
+        Condition: It should have min 5 letters.
+        Args: last_name: address to validate
+        Returns: boolean result
+        """
+        try:
+            if(bool(re.match(r"^[a-z]{5,}$", address)) == True):
+                return True
+            else:
+                raise Custom_Exception_AddressBook(
+                    "Address should have at least 5 characters")
+        except Exception as ex:
+            print(ex)
+            return False
+
+    def validate_city_name(city_name):
+        """
+        Description: This function is to validate city name.
+        Condition: City Name should start with Capital letter and should have min 3 letters.
+        Args: city_name: city name to validate
+        Returns: boolean result
+        """
+        try:
+            if(bool(re.match(r"^[A-Z]{1}[a-z]{2,}$", city_name)) == True):
+                return True
+            else:
+                raise Custom_Exception_AddressBook(
+                    "City name should start with capital letter & should have at least 3 characters")
+        except Exception as ex:
+            print(ex)
+            return False
+
+    def validate_state_name(state_name):
+        """
+        Description: This function is to validate state name.
+        Condition: state Name should start with Capital letter and should have min 3 letters.
+        Args: state_name: state name to validate
+        Returns: boolean result
+        """
+        try:
+            if(bool(re.match(r"^[A-Z]{1}[a-z]{2,}$", state_name)) == True):
+                return True
+            else:
+                raise Custom_Exception_AddressBook(
+                    "State name should start with capital letter & should have at least 3 characters")
+        except Exception as ex:
+            print(ex)
+            return False
+
     def validate_zip(zip):
         """
         Description: This function is to validate zip code.

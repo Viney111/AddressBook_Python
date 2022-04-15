@@ -15,7 +15,7 @@ from contacts import Contacts
 
 def adding_contactslist_in_dict(addressbook_dict):
     """
-        Description: Adding Address Book & Contact Details in Dictionary
+        Description: Adding Address Book name as key & Contact Details as value in Dictionary
         Parameters: addressbook_dict : The dictionary in which all these contacts details to be stored
         Returns: Returns A filled dictionary, taking inputs from console
     """
@@ -35,6 +35,17 @@ def adding_contactslist_in_dict(addressbook_dict):
     except Exception as ex:
         print(ex)
         adding_contactslist_in_dict(addressbook_dict)
+
+
+def search_person_in_a_city_state(searching_dict):
+    entered_city_or_state = input(
+        "Please enter a city or state for searching a person: ")
+    for key, value in searching_dict.items():
+        for item in value:
+            if (item.city == entered_city_or_state or item.state == entered_city_or_state):
+                print("The person, you searched for, belongs to ",
+                      entered_city_or_state, " & is from this ", key, " address book: ")
+                print(str(item))
 
 
 if __name__ == "__main__":

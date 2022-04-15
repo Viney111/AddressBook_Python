@@ -29,8 +29,14 @@ def add_contacts_from_console():
             if Regex_Validation.validate_last_name(last_name) == False:
                 continue
             address = input("Enter the address: ")
+            if Regex_Validation.validate_address(address) == False:
+                continue
             city = input("Enter city name: ")
+            if Regex_Validation.validate_city_name(city) == False:
+                continue
             state = input("Enter state name: ")
+            if Regex_Validation.validate_state_name(state) == False:
+                continue
             zip = input("Enter zip code: ")
             if Regex_Validation.validate_zip(zip) == False:
                 continue
@@ -38,6 +44,8 @@ def add_contacts_from_console():
             if Regex_Validation.validate_phone_number(phone_number) == False:
                 continue
             email = input("Enter email address: ")
+            if Regex_Validation.validate_email(email) == False:
+                continue
             contact_obj = Contacts(first_name, last_name, address,
                                    city, state, zip, phone_number, email)
             break
