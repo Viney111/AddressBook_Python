@@ -89,11 +89,13 @@ if __name__ == "__main__":
     # search_person_in_a_city_state(address_book_dict)
     cityperson_dict = dictionary_of_city_and_person(address_book_dict)
     for key, value in cityperson_dict.items():
-        print("Persons residing in ", key, " city are:")
+        print(
+            f"Total Number of Persons residing in {key} city are: {len(value)} and details of those are: ")
         for each_contact in value:
             print(str(each_contact))
     stateperson_dict = dictionary_of_state_and_person(address_book_dict)
     for key, value in stateperson_dict.items():
-        print("Persons residing in ", key, " state are:")
+        print(
+            f"Total Number of Persons residing in {key} state are: {len(value)} and details of those are: ")
         for each_contact in value:
             print(str(each_contact))
