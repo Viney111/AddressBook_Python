@@ -1,0 +1,14 @@
+Address Book name is:Evehi
+Full Name is Viney Khaneja
+Full address is kalanaur,Panipat,Punjab,124113
+Phone Number & email is 91 7206594149 and vineykhaneja999gmail.com respectively
+Full Name is Aman Gupta
+Full address is jagdishcolony,Rohtak,Haryana,124001
+Phone Number & email is 91 9991661664 and amangpta123gmail.com respectively
+Address Book name is:Jigri
+Full Name is Sidharth Madaan
+Full address is busstand,Sonepat,Punjab,122001
+Phone Number & email is 91 9466365917 and sidhumoosa129gmail.com respectively
+Full Name is Papplu Sharma
+Full address is parichowk,Jind,Haryana,156301
+Phone Number & email is 91 9215214254 and sharmagpta123gmail.com respectively

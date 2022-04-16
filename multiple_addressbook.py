@@ -179,11 +179,36 @@ def printing_details_on_console(list_to_be_printed):
         print(str(item))
 
 
+def writing_address_book_details_text_file(writing_dict):
+    for key, value in writing_dict.items():
+        with open("addressBookDetails.txt", "a") as write_text:
+            write_text.write(f"Address Book name is:{key}\n")
+            for item in value:
+                write_text.write(str(item))
+                write_text.write("\n")
+
+
+def reading_address_book_details_text_file():
+    with open("addressBookDetails.txt", "r") as read_text:
+        print(read_text.read())
+
+
 if __name__ == "__main__":
+    contact1 = Contacts("Viney", "Khaneja", "kalanaur", "Panipat",
+                        "Punjab", "124113", "91 7206594149", "vineykhaneja999gmail.com")
+    contact2 = Contacts("Aman", "Gupta", "jagdishcolony", "Rohtak",
+                        "Haryana", "124001", "91 9991661664", "amangpta123gmail.com")
+    contact3 = Contacts("Sidharth", "Madaan", "busstand", "Sonepat",
+                        "Punjab", "122001", "91 9466365917", "sidhumoosa129gmail.com")
+    contact4 = Contacts("Papplu", "Sharma", "parichowk", "Jind",
+                        "Haryana", "156301", "91 9215214254", "sharmagpta123gmail.com")
+    # This dictionary is being used to read & write data into files(Text,CSV,JSON)
+    addressbookdict = {"Evehi": [contact1, contact2], "Jigri":
+                       [contact3, contact4]}
     address_book_dict = {}
     while True:
         user_choice = int(input(
-            "\"1\" for Adding Contact Details...\n\"2\" for searching the person in city or state...\n\"3\" for viewing person from a city...\n\"4\" for viewing person from a state...\n\"5\" for sorting person by first name...\n\"6\" for sorting person by city name...\n\"7\" for sorting person by state name...\n\"8\" for sorting person by zip...\n\"ANY OTHER KEY\" for exiting..."))
+            "\"1\" for Adding Contact Details...\n\"2\" for searching the person in city or state...\n\"3\" for viewing person from a city...\n\"4\" for viewing person from a state...\n\"5\" for sorting person by first name...\n\"6\" for sorting person by city name...\n\"7\" for sorting person by state name...\n\"8\" for sorting person by zip...\n\"9\" for writing details in addressbookdetails.txt...\n\"10\" for reading details to console in addressbookdetails.txt...\n\"ANY OTHER KEY\" for exiting..."))
         if user_choice == 1:
             adding_contactslist_in_dict(address_book_dict)
             for key, value in address_book_dict.items():
@@ -224,5 +249,11 @@ if __name__ == "__main__":
             sorted_by_zip_list = sorting_entries_by_zip(address_book_dict)
             printing_details_on_console(sorted_by_zip_list)
             continue
-        if user_choice is not 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8:
+        if user_choice == 9:
+            writing_address_book_details_text_file(addressbookdict)
+            continue
+        if user_choice == 10:
+            reading_address_book_details_text_file()
+            continue
+        if user_choice is not 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9:
             break
