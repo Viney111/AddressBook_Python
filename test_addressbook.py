@@ -11,12 +11,14 @@
 import unittest
 from contacts import Contacts
 import multiple_addressbook
-import address_book
 from Validation_Regex import Regex_Validation
 
 
 class master:
-    contact1 = Contacts("Viney", "Khaneja", "kalanaur", "Rohtak",
+    """
+    Description: This class is for providing hard code data to unit test cases
+    """
+    contact1 = Contacts("Viney", "Khaneja", "kalanaur", "Panipat",
                         "Punjab", "124113", "91 7206594149", "vineykhaneja999gmail.com")
     contact2 = Contacts("Aman", "Gupta", "jagdishcolony", "Rohtak",
                         "Haryana", "124001", "91 9991661664", "amangpta123gmail.com")
@@ -196,6 +198,42 @@ class Test_AddressBook(unittest.TestCase):
                                 master.contact3, master.contact1]
         self.assertEqual(resulted_sorted_list, expected_sorted_list)
 
+    def test_contacts_sorted_by_city(self):
+        """
+            Description: Unit Test to verify, contacts sorted by first name or not
+            Parametres: Takes master dictionary
+            Returns: Just Checks the value inputed is giving desired results or not
+        """
+        resulted_sorted_list = multiple_addressbook.sorting_entries_by_city(
+            master.addressbookdict)
+        expected_sorted_list = [master.contact4, master.contact1,
+                                master.contact2, master.contact3]
+        self.assertEqual(resulted_sorted_list, expected_sorted_list)
+
+    def test_contacts_sorted_by_state(self):
+        """
+            Description: Unit Test to verify, contacts sorted by state name or not
+            Parametres: Takes master dictionary
+            Returns: Just Checks the value inputed is giving desired results or not
+        """
+        resulted_sorted_list = multiple_addressbook.sorting_entries_by_state(
+            master.addressbookdict)
+        expected_sorted_list = [master.contact2, master.contact4,
+                                master.contact1, master.contact3]
+        self.assertEqual(resulted_sorted_list, expected_sorted_list)
+
+    def test_contacts_sorted_by_zip(self):
+        """
+            Description: Unit Test to verify, contacts sorted by state name or not
+            Parametres: Takes master dictionary
+            Returns: Just Checks the value inputed is giving desired results or not
+        """
+        resulted_sorted_list = multiple_addressbook.sorting_entries_by_zip(
+            master.addressbookdict)
+        expected_sorted_list = [master.contact3, master.contact2,
+                                master.contact1, master.contact4]
+        self.assertEqual(resulted_sorted_list, expected_sorted_list)
+
     def test_dictionary_of_city_and_person(self):
         """
             Description: Unit Test to verify, dictionary being made with city as key & contact details as values
@@ -204,7 +242,7 @@ class Test_AddressBook(unittest.TestCase):
         """
         resulted_dict_city_and_person = multiple_addressbook.dictionary_of_city_and_person(
             master.addressbookdict)
-        expected_dict_city_and_person = {"Rohtak": [master.contact1, master.contact2], "Jind": [
+        expected_dict_city_and_person = {"Rohtak": [master.contact2], "Panipat": [master.contact1], "Jind": [
             master.contact4], "Sonepat": [master.contact3]}
         self.assertEqual(resulted_dict_city_and_person,
                          expected_dict_city_and_person)
@@ -239,7 +277,7 @@ class Test_AddressBook(unittest.TestCase):
         for key in dict_city_and_person:
             resulted_count_by_city = len(dict_city_and_person[key])
             count_by_city_list.append(resulted_count_by_city)
-        self.assertEqual(count_by_city_list, [2, 1, 1])
+        self.assertEqual(count_by_city_list, [1, 1, 1, 1])
 
 
 if __name__ == "__main___":
