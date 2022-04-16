@@ -7,20 +7,25 @@
 """
 
 
-import io
-import sys
-from ast import Assert
-# Importing Unit Test Module
+# Importing Required Unit Test Modules
 import unittest
 from contacts import Contacts
-from unittest.mock import patch
-from io import StringIO
-
-# Importing Address Book
+import multiple_addressbook
 import address_book
-
-# Importing Regex Class
 from Validation_Regex import Regex_Validation
+
+
+class master:
+    contact1 = Contacts("Viney", "Khaneja", "kalanaur", "Rohtak",
+                        "Punjab", "124113", "91 7206594149", "vineykhaneja999gmail.com")
+    contact2 = Contacts("Aman", "Gupta", "jagdishcolony", "Rohtak",
+                        "Haryana", "124001", "91 9991661664", "amangpta123gmail.com")
+    contact3 = Contacts("Sidharth", "Madaan", "busstand", "Sonepat",
+                        "Punjab", "122001", "91 9466365917", "sidhumoosa129gmail.com")
+    contact4 = Contacts("Papplu", "Sharma", "parichowk", "Jind",
+                        "Haryana", "156301", "91 9215214254", "sharmagpta123gmail.com")
+    addressbookdict = {"Evehi": [contact1, contact2], "Jigri":
+                       [contact3, contact4]}
 
 
 class Test_AddressBook(unittest.TestCase):
@@ -179,34 +184,62 @@ class Test_AddressBook(unittest.TestCase):
         self.assertFalse(
             Regex_Validation.validate_email("vishal1juuneha@bridgelabzcom"))
 
-    # def test_add_correct_contacts_details_from_console_returns_an_object_user_inputed(self):
-    #     """
-    #         Description: Unit Test to verify if contact added from console is stored as object
-    #         Parametres: Takes Input from user
-    #         Returns: The object having details entered by user from Console
-    #     """
-    #     contact_obj = address_book.add_contacts_from_console()
-    #     self.assertEqual(contact_obj.first_name, "Viney")
+    def test_contacts_sorted_by_name(self):
+        """
+            Description: Unit Test to verify, contacts sorted by first name or not
+            Parametres: Takes master dictionary
+            Returns: Just Checks the value inputed is giving desired results or not
+        """
+        resulted_sorted_list = multiple_addressbook.sorting_entries_by_name(
+            master.addressbookdict)
+        expected_sorted_list = [master.contact2, master.contact4,
+                                master.contact3, master.contact1]
+        self.assertEqual(resulted_sorted_list, expected_sorted_list)
 
-    def test_add_incorrect_contacts_details_from_console_returns_error_msg(self):
+    def test_dictionary_of_city_and_person(self):
         """
-            Description: Unit Test to verify if contact added from console is stored as object
-            Parametres: Takes Input from user
-            Returns: The object having details entered by user from Console
+            Description: Unit Test to verify, dictionary being made with city as key & contact details as values
+            Parametres: Takes master dictionary
+            Returns: Just Checks the value inputed is giving desired results or not
         """
-        contact_obj = Contacts("Viney", "Khaneja", "", "", "",
-                               "124113", "91 7206594194", "vineykahneja999@gmail.com")
-        contacts_list = []
-        contacts_list.append(contact_obj)
-        with patch('sys.stdout', new=StringIO()) as fake_out:
-            address_book.storing_contacts_in_list(contacts_list)
-            self.assertEqual(fake_out.getvalue(
-            ), "The entered Full name i.e. first name and last name already exists in particular address Book")
-        # captured_output = io.StringIO()
-        # sys.stdout = captured_output
-        # address_book.add_contacts_from_console()
-        # sys.stdout = sys.__stdout__
-        # print("Captured", captured_output.value())
+        resulted_dict_city_and_person = multiple_addressbook.dictionary_of_city_and_person(
+            master.addressbookdict)
+        expected_dict_city_and_person = {"Rohtak": [master.contact1, master.contact2], "Jind": [
+            master.contact4], "Sonepat": [master.contact3]}
+        self.assertEqual(resulted_dict_city_and_person,
+                         expected_dict_city_and_person)
+
+    def test_dictionary_of_state_and_person(self):
+        """
+            Description: Unit Test to verify, dictionary being made with state name as key & contact details as values
+            Parametres: Takes master dictionary
+            Returns: Just Checks the value inputed is giving desired results or not
+        """
+        resulted_dict_state_and_person = multiple_addressbook.dictionary_of_state_and_person(
+            master.addressbookdict)
+        expected_dict_state_and_person = {"Punjab": [master.contact1, master.contact3], "Haryana": [
+            master.contact2, master.contact4]}
+        self.assertEqual(resulted_dict_state_and_person,
+                         expected_dict_state_and_person)
+
+    def test_count_by_state_and_city(self):
+        """
+            Description: Unit Test to verify, counting of persons by city & states 
+            Parametres: Takes master dictionary
+            Returns: Just Checks the value inputed is giving desired results or not
+        """
+        dict_state_and_person = multiple_addressbook.dictionary_of_state_and_person(
+            master.addressbookdict)
+        dict_city_and_person = multiple_addressbook.dictionary_of_city_and_person(
+            master.addressbookdict)
+        for key in dict_state_and_person:
+            resulted_counts_by_state = len((dict_state_and_person[key]))
+        self.assertEqual(resulted_counts_by_state, 2)
+        count_by_city_list = []
+        for key in dict_city_and_person:
+            resulted_count_by_city = len(dict_city_and_person[key])
+            count_by_city_list.append(resulted_count_by_city)
+        self.assertEqual(count_by_city_list, [2, 1, 1])
 
 
 if __name__ == "__main___":
