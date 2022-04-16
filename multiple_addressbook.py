@@ -11,7 +11,8 @@ from functools import reduce
 from os import execl
 # Importing Exception class
 from Custom_Exception import Custom_Exception_AddressBook
-
+# Importing CSV
+import csv
 # Importing Address Book
 import address_book
 
@@ -180,17 +181,69 @@ def printing_details_on_console(list_to_be_printed):
 
 
 def writing_address_book_details_text_file(writing_dict):
-    for key, value in writing_dict.items():
-        with open("addressBookDetails.txt", "a") as write_text:
-            write_text.write(f"Address Book name is:{key}\n")
-            for item in value:
-                write_text.write(str(item))
-                write_text.write("\n")
+    """
+        Description: Writing the person details to text file
+        Parameters: Address Book Dictionary
+        Returns: None,just writes to file
+    """
+    try:
+        for key, value in writing_dict.items():
+            with open("addressBookDetails.txt", "a") as write_text:
+                write_text.write(f"Address Book name is:{key}\n")
+                for item in value:
+                    write_text.write(str(item))
+                    write_text.write("\n")
+    except IOError as ex:
+        print(ex)
 
 
 def reading_address_book_details_text_file():
-    with open("addressBookDetails.txt", "r") as read_text:
-        print(read_text.read())
+    """
+        Description: Reading the person details to console from Text File
+        Parameters: None
+        Returns: None,just reades to console from file
+    """
+    try:
+        with open("addressBookDetails.txt", "r") as read_text:
+            print(read_text.read())
+    except IOError as ex:
+        print(ex)
+
+
+def writing_address_book_details_csv_file(writing_dict):
+    """
+        Description: Writing the person details to CSV file
+        Parameters: Address Book Dictionary
+        Returns: None,just writes to file
+    """
+    try:
+        csv_columns = ["AddressBook Name", "First Name", "Last Name", "Address",
+                       "City", "State", "Zip", "Phone Number", "Email"]
+        with open("addressbookdetails.csv", "a") as write_csv:
+            csvwriter = csv.writer(write_csv)
+            csvwriter.writerow(csv_columns)
+            for key, value in writing_dict.items():
+                for item in value:
+                    contact_row = [key, item.first_name, item.last_name, item.address,
+                                   item.city, item.state, item.zip, item.phone_number, item.email]
+                    csvwriter.writerow(contact_row)
+    except IOError as ex:
+        print(ex)
+
+
+def reading_address_book_details_csv_file():
+    """
+        Description: Reading the person details to console from CSV File
+        Parameters: None
+        Returns: None,just reades to console from file
+    """
+    try:
+        with open("addressbookdetails.csv", "r") as read_csv:
+            csvFile = csv.reader(read_csv)
+            for lines in csvFile:
+                print(lines)
+    except IOError as ex:
+        print(ex)
 
 
 if __name__ == "__main__":
@@ -208,7 +261,13 @@ if __name__ == "__main__":
     address_book_dict = {}
     while True:
         user_choice = int(input(
-            "\"1\" for Adding Contact Details...\n\"2\" for searching the person in city or state...\n\"3\" for viewing person from a city...\n\"4\" for viewing person from a state...\n\"5\" for sorting person by first name...\n\"6\" for sorting person by city name...\n\"7\" for sorting person by state name...\n\"8\" for sorting person by zip...\n\"9\" for writing details in addressbookdetails.txt...\n\"10\" for reading details to console in addressbookdetails.txt...\n\"ANY OTHER KEY\" for exiting..."))
+            "\"1\" for Adding Contact Details...\n\"2\" for searching the person in city or state...\n"
+            "\"3\" for viewing person from a city...\n\"4\" for viewing person from a state...\n"
+            "\"5\" for sorting person by first name...\n\"6\" for sorting person by city name...\n"
+            "\"7\" for sorting person by state name...\n\"8\" for sorting person by zip...\n"
+            "\"9\" for writing details in addressbookdetails.txt...\n\"10\" for reading details to console from addressbookDetails.txt...\n"
+            "\"11\" for writing details to console in addressbookdetails.csv...\n\"12\" for reading details from console in addressbookdetails.csv...\n"
+            "\"ANY OTHER KEY\" for exiting..."))
         if user_choice == 1:
             adding_contactslist_in_dict(address_book_dict)
             for key, value in address_book_dict.items():
@@ -255,5 +314,11 @@ if __name__ == "__main__":
         if user_choice == 10:
             reading_address_book_details_text_file()
             continue
-        if user_choice is not 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9:
+        if user_choice == 11:
+            writing_address_book_details_csv_file(addressbookdict)
+            continue
+        if user_choice == 12:
+            reading_address_book_details_csv_file()
+            continue
+        if user_choice is not 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11 or 12:
             break
