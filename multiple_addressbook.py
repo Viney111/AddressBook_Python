@@ -9,10 +9,12 @@
 # Importing reduce
 from functools import reduce
 from os import execl
+from this import d
 # Importing Exception class
 from Custom_Exception import Custom_Exception_AddressBook
-# Importing CSV
+# Importing CSV & Json
 import csv
+import json
 # Importing Address Book
 import address_book
 
@@ -176,8 +178,11 @@ def printing_details_on_console(list_to_be_printed):
         Parameters: list_to_be_printed : List that  needs to be printed
         Returns: None,just displays the person details on console
     """
-    for item in list_to_be_printed:
-        print(str(item))
+    try:
+        for item in list_to_be_printed:
+            print(str(item))
+    except Exception as ex:
+        print(ex)
 
 
 def writing_address_book_details_text_file(writing_dict):
@@ -195,6 +200,8 @@ def writing_address_book_details_text_file(writing_dict):
                     write_text.write("\n")
     except IOError as ex:
         print(ex)
+    except Exception as ex:
+        print(ex)
 
 
 def reading_address_book_details_text_file():
@@ -207,6 +214,8 @@ def reading_address_book_details_text_file():
         with open("addressBookDetails.txt", "r") as read_text:
             print(read_text.read())
     except IOError as ex:
+        print(ex)
+    except Exception as ex:
         print(ex)
 
 
@@ -229,6 +238,8 @@ def writing_address_book_details_csv_file(writing_dict):
                     csvwriter.writerow(contact_row)
     except IOError as ex:
         print(ex)
+    except Exception as ex:
+        print(ex)
 
 
 def reading_address_book_details_csv_file():
@@ -242,6 +253,45 @@ def reading_address_book_details_csv_file():
             csvFile = csv.reader(read_csv)
             for lines in csvFile:
                 print(lines)
+    except IOError as ex:
+        print(ex)
+    except Exception as ex:
+        print(ex)
+
+
+def writing_address_book_details_json_file(writing_dict):
+    """
+        Description: Writing the person details to JSON File
+        Parameters: None
+        Returns: None,just writes to file
+    """
+    try:
+        # Initializing dictionary which would have Json Serialized objects of conatcts clas.
+        json_dict = {}
+        for key, value in writing_dict.items():
+            for item in value:
+                # Making my Conatcts class Json Serializable for dumping in Json File
+                json_obj = item.toJson()
+                # Appending Elements to json_dict, which is to be converted into Json File
+                json_dict.setdefault(key, []).append(json_obj)
+        with open("addressbookdetails.json", "w") as write_json:
+            json.dump(json_dict, write_json, indent=4)
+    except IOError as ex:
+        print(ex)
+    except Exception as ex:
+        print(ex)
+
+
+def reading_address_book_details_json_file():
+    """
+        Description: Reading the person details to console from JSON File
+        Parameters: None
+        Returns: None,just reades to console from file
+    """
+    try:
+        with open("addressbookdetails.json", "r") as read_json:
+            data = json.load(read_json)
+            print(data)
     except IOError as ex:
         print(ex)
 
@@ -266,7 +316,8 @@ if __name__ == "__main__":
             "\"5\" for sorting person by first name...\n\"6\" for sorting person by city name...\n"
             "\"7\" for sorting person by state name...\n\"8\" for sorting person by zip...\n"
             "\"9\" for writing details in addressbookdetails.txt...\n\"10\" for reading details to console from addressbookDetails.txt...\n"
-            "\"11\" for writing details to console in addressbookdetails.csv...\n\"12\" for reading details from console in addressbookdetails.csv...\n"
+            "\"11\" for writing details to CSV file in addressbookdetails.csv...\n\"12\" for reading details to console from addressbookdetails.csv...\n"
+            "\"13\" for writing details to JSON in addressbookdetails.json...\n\"14\" for reading details to console from addressbookdetails.json...\n"
             "\"ANY OTHER KEY\" for exiting..."))
         if user_choice == 1:
             adding_contactslist_in_dict(address_book_dict)
@@ -274,17 +325,17 @@ if __name__ == "__main__":
                 print("Address Book Name is: ", key)
                 printing_details_on_console(value)
             continue
-        if user_choice == 2:
+        elif user_choice == 2:
             search_person_in_a_city_state(address_book_dict)
             continue
-        if user_choice == 3:
+        elif user_choice == 3:
             cityperson_dict = dictionary_of_city_and_person(address_book_dict)
             for key, value in cityperson_dict.items():
                 print(
                     f"Total Number of Persons residing in {key} city are: {len(value)} and details of those are: ")
                 printing_details_on_console(value)
             continue
-        if user_choice == 4:
+        elif user_choice == 4:
             stateperson_dict = dictionary_of_state_and_person(
                 address_book_dict)
             for key, value in stateperson_dict.items():
@@ -292,33 +343,39 @@ if __name__ == "__main__":
                     f"Total Number of Persons residing in {key} state are: {len(value)} and details of those are: ")
                 printing_details_on_console(value)
             continue
-        if user_choice == 5:
+        elif user_choice == 5:
             sorted_by_name_list = sorting_entries_by_name(address_book_dict)
             printing_details_on_console(sorted_by_name_list)
             continue
-        if user_choice == 6:
+        elif user_choice == 6:
             sorted_by_city_list = sorting_entries_by_city(address_book_dict)
             printing_details_on_console(sorted_by_city_list)
             continue
-        if user_choice == 7:
+        elif user_choice == 7:
             sorted_by_state_list = sorting_entries_by_state(address_book_dict)
             printing_details_on_console(sorted_by_state_list)
             continue
-        if user_choice == 8:
+        elif user_choice == 8:
             sorted_by_zip_list = sorting_entries_by_zip(address_book_dict)
             printing_details_on_console(sorted_by_zip_list)
             continue
-        if user_choice == 9:
+        elif user_choice == 9:
             writing_address_book_details_text_file(addressbookdict)
             continue
-        if user_choice == 10:
+        elif user_choice == 10:
             reading_address_book_details_text_file()
             continue
-        if user_choice == 11:
+        elif user_choice == 11:
             writing_address_book_details_csv_file(addressbookdict)
             continue
-        if user_choice == 12:
+        elif user_choice == 12:
             reading_address_book_details_csv_file()
             continue
-        if user_choice is not 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11 or 12:
+        elif user_choice == 13:
+            writing_address_book_details_json_file(addressbookdict)
+            continue
+        elif user_choice == 14:
+            reading_address_book_details_json_file()
+            continue
+        else:
             break

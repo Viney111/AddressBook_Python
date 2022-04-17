@@ -1,0 +1,10 @@
+{
+    "Evehi": [
+        "{\"first_name\": \"Viney\", \"last_name\": \"Khaneja\", \"address\": \"kalanaur\", \"city\": \"Panipat\", \"state\": \"Punjab\", \"zip\": \"124113\", \"phone_number\": \"91 7206594149\", \"email\": \"vineykhaneja999gmail.com\"}",
+        "{\"first_name\": \"Aman\", \"last_name\": \"Gupta\", \"address\": \"jagdishcolony\", \"city\": \"Rohtak\", \"state\": \"Haryana\", \"zip\": \"124001\", \"phone_number\": \"91 9991661664\", \"email\": \"amangpta123gmail.com\"}"
+    ],
+    "Jigri": [
+        "{\"first_name\": \"Sidharth\", \"last_name\": \"Madaan\", \"address\": \"busstand\", \"city\": \"Sonepat\", \"state\": \"Punjab\", \"zip\": \"122001\", \"phone_number\": \"91 9466365917\", \"email\": \"sidhumoosa129gmail.com\"}",
+        "{\"first_name\": \"Papplu\", \"last_name\": \"Sharma\", \"address\": \"parichowk\", \"city\": \"Jind\", \"state\": \"Haryana\", \"zip\": \"156301\", \"phone_number\": \"91 9215214254\", \"email\": \"sharmagpta123gmail.com\"}"
+    ]
+}
